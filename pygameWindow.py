@@ -1,8 +1,10 @@
 import pygame
+import constants
+
 class PYGAME_WINDOW:
     def __init__(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((300, 100))
+        self.screen = pygame.display.set_mode((constants.pygameWindowWidth, constants.pygameWindowDepth))
 
     def Prepare(self):
 
@@ -12,3 +14,6 @@ class PYGAME_WINDOW:
 
     def Reveal(self):
         pygame.display.update()
+
+    def Draw_Black_Circle(self,x,y):
+        pygame.draw.circle(self.screen, (0,0,0), (x,y), 10)
