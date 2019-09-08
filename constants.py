@@ -1,3 +1,3 @@
 
-pygameWindowWidth = 900
-pygameWindowDepth = 780
+pygameWindowWidth = 800
+pygameWindowDepth = 800
