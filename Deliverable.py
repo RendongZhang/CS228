@@ -1,4 +1,6 @@
 import sys
+import os
+import glob
 import pickle
 import numpy as np
 sys.path.insert(0, '..')
@@ -21,8 +23,14 @@ class DELIVERABLE:
         self.currentNumberOfHands = 0
         self.gestureData = np.zeros((5, 4, 6), dtype='f')
         self.gesNumber = 1
+        self.Empty_Directory()
+    def Empty_Directory(self):
+        files = glob.glob('userData/*')
+        for f in files:
+            os.remove(f)
+
     def Handle_Frame(self,frame):
-        self.x, self.y, self.xMin, self.xMax, self.yMin, self.yMax
+
         hand = frame.hands[0]
         fingers = hand.fingers
         for i in range(5):
