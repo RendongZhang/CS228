@@ -20,6 +20,7 @@ class DELIVERABLE:
         self.previousNumberOfHands = 0
         self.currentNumberOfHands = 0
         self.gestureData = np.zeros((5, 4, 6), dtype='f')
+        self.gesNumber = 1
     def Handle_Frame(self,frame):
         self.x, self.y, self.xMin, self.xMax, self.yMin, self.yMax
         hand = frame.hands[0]
@@ -44,9 +45,10 @@ class DELIVERABLE:
 
         if self.Recording_Is_Ending():
             print(self.gestureData)
-            self.Save_Gesture()     #step 32
-    def Save_Gesture(self):
-        pickle_out = open("userData/gesture.p","wb")
+            self.Save_Gesture(self.gesNumber)
+            self.gesNumber += 1
+    def Save_Gesture(self,gesNumber):
+        pickle_out = open('userData/gesture{0}.txt'.format(self.gesNumber),"wb")
         pickle.dump(self.gestureData, pickle_out)
         pickle_out.close()
     def Recording_Is_Ending(self):
