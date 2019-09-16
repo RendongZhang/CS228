@@ -12,6 +12,7 @@ from pygameWindow_Del03 import PYGAME_WINDOW
 class DELIVERABLE:
     def __init__(self):
         self.controller = Leap.Controller()
+        self.controller = Leap.Controller()
         self.pygameWindow = PYGAME_WINDOW()
         self.x = 100
         self.y = 100
