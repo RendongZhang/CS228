@@ -56,7 +56,7 @@ class DELIVERABLE:
             print(self.gestureData)
             self.Save_Gesture(self.gesNumber)
             self.gesNumber += 1
-    def Save_Gesture(self,gesNumber):
+    def Save_Gesture(self):
         pickle_out = open('userData/gesture{0}.txt'.format(self.gesNumber),"wb")
         pickle.dump(self.gestureData, pickle_out)
         pickle_out.close()
