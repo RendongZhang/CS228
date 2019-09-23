@@ -18,8 +18,6 @@ for j in range(0,75):
     actualClass = testy[j]
     prediction = knn.Predict(testX[j, 1:3])
 
-
-
 plt.figure()
 colors = np.zeros((3,3),dtype='f')
 colors[0,:] = [1,0.5,0.5]
@@ -29,8 +27,9 @@ colors[2,:] = [0.5,0.5,1]
 for i in range(0,numItems/2):
     itemClass = int(trainy[i])
     currColor = colors[itemClass, :]
-    plt.scatter(trainX[i,0],trainX[i,1], facecolor = currColor, lw=2)
+    plt.scatter(trainX[i,0],trainX[i,1], facecolor = currColor, s= 50, lw=2,edgecolors="black")
 count = 0
+
 for k in range(0,numItems/2):
     prediction = int(knn.Predict(testX[k, :]))
     edgeColor = colors[prediction, :]
@@ -38,10 +37,9 @@ for k in range(0,numItems/2):
     if prediction == itemClass:
         count += 1
     currColor = colors[itemClass, :]
-    plt.scatter(testX[k, 0], testX[k, 1], facecolor=currColor,  lw=2, edgecolor=edgeColor)
+    plt.scatter(testX[k, 0], testX[k, 1], facecolor=currColor, s=50,  lw=2, edgecolor=edgeColor)
 
-# plt.scatter(trainX[:,0], trainX[:,1],c=trainy)
-# plt.scatter(testX[:,0], testX[:,1],c=testy)
+
 plt.show()
 print (count)
 print (float(count) / len(testX) *100)
