@@ -83,3 +83,4 @@ for row in range(0,2000):
         counter += 1
 
 print (float(counter)/2000)
+pickle.dump(knn, open('userData/classifier.p','wb'))
