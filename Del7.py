@@ -15,7 +15,7 @@ import random
 import time
 import matplotlib.pyplot as plt
 
-clf = pickle.load( open('Del6/userData/classifier.p','rb') )
+clf = pickle.load(open('Del6/userData/classifier.p', 'rb'))
 testData = np.zeros((1, 30), dtype='f')
 
 x = 0
@@ -25,7 +25,7 @@ pygameWindow = PYGAME_WINDOW()
 
 
 def Handle_Frame(frame):
-    global x, y, xMin, xMax, yMin, yMax, testData,predictedClass
+    global x, y, xMin, xMax, yMin, yMax, testData, predictedClass
     hand = frame.hands[0]
 
     fingers = hand.fingers
@@ -38,7 +38,7 @@ def Handle_Frame(frame):
     testData = CenterData(testData)  # 13a
 
     predictedClass = clf.Predict(testData)
-    print "predict : " , predictedClass
+    print "predict : ", predictedClass
 
     indexFingerList = hand.fingers.finger_type(Finger.TYPE_INDEX)
     indexFinger = indexFingerList[0]
@@ -47,7 +47,6 @@ def Handle_Frame(frame):
     tip = distalPhalanx.next_joint
     x = int(tip[0])
     y = int(tip[1])
-
 
     if (x < xMin):
         xMin = x
@@ -69,7 +68,7 @@ def Handle_Finger(finger):
 
 
 def Handle_Bone(bone, b):
-    global k, programState, centered,seconds
+    global k, programState, centered, seconds
 
     base = bone.prev_joint
     tip = bone.next_joint
@@ -119,25 +118,21 @@ def Handle_Bone(bone, b):
         pass
     if 60 < baseCo[0] < 440 and 40 < baseCo[1] < 320:
         centered = True
-        print("success",programState)
+        print("success", programState)
         if programState == 1:
             pygameWindow.screen.blit(imageSuccess, (constants.pygameWindowWidth / 2, 0))
 
             seconds += 1
             print ("seconds ", seconds)
-            if seconds >= 100:
-
+            if seconds >= 200:
                 programState = 2
                 pass
-    if programState ==2:
-
+    if programState == 2:
         pygameWindow.screen.blit(imageNumber, (constants.pygameWindowWidth / 2, 0))
-        pygameWindow.screen.blit(imageASL, (constants.pygameWindowWidth / 2,constants.pygameWindowWidth / 2 ))
-
+        pygameWindow.screen.blit(imageASL, (constants.pygameWindowWidth / 2, constants.pygameWindowWidth / 2))
+        seconds = 0
         programState = 3
         pass
-
-
 
 
 def CenterData(data):
@@ -200,32 +195,76 @@ def HandleState2():
     for hand in handlist:
         if (len(str(hand)) > 0):
             Handle_Frame(frame)
+
+
 def HandleState3():
-    global  predictedClass,programState,randomNum,imageNumber,imageASL
-    print (predictedClass,randomNum)
+    global predictedClass, programState, randomNum, imageNumber, imageASL
+    print (predictedClass, randomNum)
     if (len(handlist) == 0):
         programState = 0
     if (len(handlist) > 0 and centered == False):
         programState = 1
         pass
 
-    if (predictedClass == randomNum ):
+    if (predictedClass == randomNum):
 
         pygameWindow.screen.blit(imageCorrect, (constants.pygameWindowWidth / 2, 0))
+        database[userName]["digit{0}attempted".format(randomNum)] += 1
         pygameWindow.screen.blit(imageASL, (constants.pygameWindowWidth / 2, constants.pygameWindowWidth / 2))
         randomNum = random.randint(0, 9)
         imageNumber = pygame.image.load('number/{0}.jpeg'.format(randomNum))
-        imageNumber = pygame.transform.scale(imageNumber,  (constants.pygameWindowWidth / 2, constants.pygameWindowDepth / 2))
+        imageNumber = pygame.transform.scale(imageNumber,
+                                             (constants.pygameWindowWidth / 2, constants.pygameWindowDepth / 2))
         imageASL = pygame.image.load('number/ASL{0}.png'.format(randomNum))
         imageASL = pygame.transform.scale(imageASL, (constants.pygameWindowWidth / 2, constants.pygameWindowDepth / 2))
         programState = 2
+        s0 = ("Digit 0 presented : " + str(database[userName]['digit0attempted']))
+        s1 = ("Digit 1 presented : " + str(database[userName]['digit1attempted']))
+        s2 = ("Digit 2 presented : " + str(database[userName]['digit2attempted']))
+        s3 = ("Digit 3 presented : " + str(database[userName]['digit3attempted']))
+        s4 = ("Digit 4 presented : " + str(database[userName]['digit4attempted']))
+        s5 = ("Digit 5 presented : " + str(database[userName]['digit5attempted']))
+        s6 = ("Digit 6 presented : " + str(database[userName]['digit6attempted']))
+        s7 = ("Digit 7 presented : " + str(database[userName]['digit7attempted']))
+        s8 = ("Digit 8 presented : " + str(database[userName]['digit8attempted']))
+        s9 = ("Digit 9 presented : " + str(database[userName]['digit9attempted']))
+        text0 = font.render(s0, True, (0, 128, 0))
+        text1 = font.render(s1, True, (0, 128, 0))
+        text2 = font.render(s2, True, (0, 128, 0))
+        text3 = font.render(s3, True, (0, 128, 0))
+        text4 = font.render(s4, True, (0, 128, 0))
+        text5 = font.render(s5, True, (0, 128, 0))
+        text6 = font.render(s6, True, (0, 128, 0))
+        text7 = font.render(s7, True, (0, 128, 0))
+        text8 = font.render(s8, True, (0, 128, 0))
+        text9 = font.render(s9, True, (0, 128, 0))
+        pygameWindow.screen.blit(text0,(0, 0))
+        pygameWindow.screen.blit(text1, (0, 40))
+        pygameWindow.screen.blit(text2, (0, 80))
+        pygameWindow.screen.blit(text3, (0, 120))
+        pygameWindow.screen.blit(text4, (0, 160))
+        pygameWindow.screen.blit(text5, (0, 200))
+        pygameWindow.screen.blit(text6, (0, 240))
+        pygameWindow.screen.blit(text7, (0, 280))
+        pygameWindow.screen.blit(text8, (0, 320))
+        pygameWindow.screen.blit(text9, (0, 360))
+
+
         pygame.display.update()
         pygame.event.get()
+
         print "delay"
         time.sleep(2)
 
         pass
-    elif (predictedClass != randomNum ):
+    elif predictedClass == 11:
+        programState = 4
+        pygameWindow.screen.blit(imageSeeYou, (0, 0))
+        pygame.display.update()
+        pygame.event.get()
+        time.sleep(3)
+        pass
+    elif predictedClass != randomNum and predictedClass != 11:
         for hand in handlist:
             if (len(str(hand)) > 0):
                 Handle_Frame(frame)
@@ -235,7 +274,6 @@ def HandleState3():
 
         programState = 3
         pass
-
 
 
 controller = Leap.Controller()
@@ -259,12 +297,51 @@ imageCorrect = pygame.image.load("number/correct.jpeg")
 imageCorrect = pygame.transform.scale(imageCorrect, (constants.pygameWindowWidth / 2, constants.pygameWindowDepth / 2))
 imageWrong = pygame.image.load("number/wrong.jpeg")
 imageWrong = pygame.transform.scale(imageWrong, (constants.pygameWindowWidth / 2, constants.pygameWindowDepth / 2))
+imageSeeYou = pygame.image.load("number/seeyou.png")
+imageSeeYou = pygame.transform.scale(imageSeeYou, (constants.pygameWindowWidth, constants.pygameWindowDepth))
 #
-randomNum = random.randint(0,9)
+randomNum = random.randint(0, 9)
 imageNumber = pygame.image.load('number/{0}.jpeg'.format(randomNum))
 imageNumber = pygame.transform.scale(imageNumber, (constants.pygameWindowWidth / 2, constants.pygameWindowDepth / 2))
-imageASL= pygame.image.load('number/ASL{0}.png'.format(randomNum))
+imageASL = pygame.image.load('number/ASL{0}.png'.format(randomNum))
 imageASL = pygame.transform.scale(imageASL, (constants.pygameWindowWidth / 2, constants.pygameWindowDepth / 2))
+#
+font = pygame.font.SysFont("comicsansms", 48)
+
+
+
+database = database = pickle.load(open('userData/database.p', 'rb'))
+userName = raw_input('Please enter your name: ')
+if userName in database:
+    database[userName]['logins'] += 1
+    print('welcome back ' + userName + '.')
+    print 'Your  successful attempts: '
+    print "Digit 0 : ", database[userName]['digit0attempted']
+    print "Digit 1 : ", database[userName]['digit1attempted']
+    print "Digit 2 : ", database[userName]['digit2attempted']
+    print "Digit 3 : ", database[userName]['digit3attempted']
+    print "Digit 4 : ", database[userName]['digit4attempted']
+    print "Digit 5 : ", database[userName]['digit5attempted']
+    print "Digit 6 : ", database[userName]['digit6attempted']
+    print "Digit 7 : ", database[userName]['digit7attempted']
+    print "Digit 8 : ", database[userName]['digit8attempted']
+    print "Digit 9 : ", database[userName]['digit9attempted']
+else:
+    database[userName] = {'logins': 1, 'digit0attempted': 0, 'digit1attempted': 0, 'digit2attempted': 0,
+                          'digit3attempted': 0, 'digit4attempted': 0, 'digit5attempted': 0, 'digit6attempted': 0,
+                          'digit7attempted': 0, 'digit8attempted': 0, 'digit9attempted': 0}
+    print('welcome ' + userName + '.')
+    print('Your  successful attempts: ')
+    print "Digit 0 : ", database[userName]['digit0attempted']
+    print "Digit 1 : ", database[userName]['digit1attempted']
+    print "Digit 2 : ", database[userName]['digit2attempted']
+    print "Digit 3 : ", database[userName]['digit3attempted']
+    print "Digit 4 : ", database[userName]['digit4attempted']
+    print "Digit 5 : ", database[userName]['digit5attempted']
+    print "Digit 6 : ", database[userName]['digit6attempted']
+    print "Digit 7 : ", database[userName]['digit7attempted']
+    print "Digit 8 : ", database[userName]['digit8attempted']
+    print "Digit 9 : ", database[userName]['digit9attempted']
 
 
 
@@ -273,7 +350,8 @@ predictedClass = -1
 centered = False
 programState = 0
 seconds = 0
-while True:
+loop = True
+while loop:
     pygameWindow.Prepare()
     frame = controller.frame()
     handlist = frame.hands
@@ -284,7 +362,14 @@ while True:
         HandleState1()
     elif (programState == 2):
         HandleState2()
-    elif (programState == 3 ):
+    elif (programState == 3):
         HandleState3()
+    elif (programState == 4):
+        loop = False
 
     pygameWindow.Reveal()
+
+pygame.quit()
+
+pickle.dump(database, open('userData/database.p', 'wb'))
+print("Game Over")

@@ -130,9 +130,21 @@ test9 = ReduceData(test9)
 test9 = CenterData(test9)
 
 
-def ReshapeData(set0, set1, set2, set3, set4, set5, set6, set7, set8, set9):
-    X = np.zeros((10000, 5 * 2 * 3), dtype='f')
-    y = np.zeros(10000, dtype='f')
+pickle_in = open('userData/exitTrain.p', "rb")
+trainExit = pickle.load(pickle_in)
+pickle_in.close()
+trainExit = ReduceData(trainExit)
+trainExit = CenterData(trainExit)
+pickle_in = open('userData/exitTest.p', "rb")
+testExit = pickle.load(pickle_in)
+pickle_in.close()
+testExit = ReduceData(testExit)
+testExit = CenterData(testExit)
+
+
+def ReshapeData(set0, set1, set2, set3, set4, set5, set6, set7, set8, set9, set10):
+    X = np.zeros((11000, 5 * 2 * 3), dtype='f')
+    y = np.zeros(11000, dtype='f')
     for row in range(0, 1000):
         col = 0
         y[row] = 0
@@ -145,6 +157,7 @@ def ReshapeData(set0, set1, set2, set3, set4, set5, set6, set7, set8, set9):
         y[row + 7000] = 7
         y[row + 8000] = 8
         y[row + 9000] = 9
+        y[row + 10000] = 11
         for finger in range(0, 5):
             for bone in range(0, 2):
                 for m in range(0, 3):
@@ -158,13 +171,13 @@ def ReshapeData(set0, set1, set2, set3, set4, set5, set6, set7, set8, set9):
                     X[row + 7000, col] = set7[finger, bone, m, row]
                     X[row + 8000, col] = set8[finger, bone, m, row]
                     X[row + 9000, col] = set9[finger, bone, m, row]
-
+                    X[row + 10000, col] = set10[finger, bone, m, row]
                     col = col + 1
     return X, y
 
 
-trainX, trainy = ReshapeData(train0, train1, train2, train3, train4, train5, train6, train7, train8, train9)
-testX, testy = ReshapeData(test0, test1, test2, test3, test4, test5, test6, test7, test8, test9)
+trainX, trainy = ReshapeData(train0, train1, train2, train3, train4, train5, train6, train7, train8, train9,trainExit)
+testX, testy = ReshapeData(test0, test1, test2, test3, test4, test5, test6, test7, test8, test9,testExit)
 
 knn = knn.KNN()
 knn.Use_K_Of(15)
