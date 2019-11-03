@@ -213,14 +213,14 @@ def HandleState3():
         for hand in handlist:
             if (len(str(hand)) > 0):
                 Handle_Frame(frame)
-        if database[userName]['digit{0}attempted'.format(randomNum)] >= 10:
+        if database[userName]['digit{0}attempted'.format(randomNum)] >= 4:
             pygameWindow.screen.blit(imageNumber, (constants.pygameWindowWidth / 2, 0))
-        elif   5 <= database[userName]['digit{0}attempted'.format(randomNum)] < 10:
+        elif   2 <= database[userName]['digit{0}attempted'.format(randomNum)] < 4:
             pygameWindow.screen.blit(imageNumber, (constants.pygameWindowWidth / 2, 0))
             if  2 < correctPredict < 6:
                 pygameWindow.screen.blit(imageASL, (constants.pygameWindowWidth / 2, constants.pygameWindowWidth / 2))
 
-        elif  database[userName]['digit{0}attempted'.format(randomNum)] <5:
+        elif  database[userName]['digit{0}attempted'.format(randomNum)] <2:
             pygameWindow.screen.blit(imageNumber, (constants.pygameWindowWidth / 2, 0))
             pygameWindow.screen.blit(imageASL, (constants.pygameWindowWidth / 2, constants.pygameWindowWidth / 2))
         programState = 3
@@ -237,21 +237,21 @@ def HandleState3():
         correct.add(randomNum)
         print correctTimes,"correct 1 situation"
 
-        if database[userName]['digit{0}attempted'.format(randomNum)] >= 10:
+        if database[userName]['digit{0}attempted'.format(randomNum)] >= 4:
             pygameWindow.screen.blit(imageCorrect, (constants.pygameWindowWidth / 2, 0))
-        elif   5 <= database[userName]['digit{0}attempted'.format(randomNum)] < 10:
+        elif   2 <= database[userName]['digit{0}attempted'.format(randomNum)] < 4:
             pygameWindow.screen.blit(imageCorrect, (constants.pygameWindowWidth / 2, 0))
             if  2 < correctPredict < 6:
                 pygameWindow.screen.blit(imageASL, (constants.pygameWindowWidth / 2, constants.pygameWindowWidth / 2))
 
 
-        elif  database[userName]['digit{0}attempted'.format(randomNum)] <5:
+        elif  database[userName]['digit{0}attempted'.format(randomNum)] <2:
             pygameWindow.screen.blit(imageCorrect, (constants.pygameWindowWidth / 2, 0))
             pygameWindow.screen.blit(imageASL, (constants.pygameWindowWidth / 2, constants.pygameWindowWidth / 2))
 
 
         database[userName]["digit{0}attempted".format(randomNum)] += 1
-        pygameWindow.screen.blit(imageASL, (constants.pygameWindowWidth / 2, constants.pygameWindowWidth / 2))
+        # pygameWindow.screen.blit(imageASL, (constants.pygameWindowWidth / 2, constants.pygameWindowWidth / 2))
 
 
         lis = list(correct)
@@ -306,13 +306,13 @@ def HandleState3():
             if (len(str(hand)) > 0):
                 Handle_Frame(frame)
 
-        if database[userName]['digit{0}attempted'.format(randomNum)] >= 10:
+        if database[userName]['digit{0}attempted'.format(randomNum)] >= 4:
             pygameWindow.screen.blit(imageNumber, (constants.pygameWindowWidth / 2, 0))
-        elif 5 <= database[userName]['digit{0}attempted'.format(randomNum)] < 10:
+        elif 2 <= database[userName]['digit{0}attempted'.format(randomNum)] < 4:
             pygameWindow.screen.blit(imageNumber, (constants.pygameWindowWidth / 2, 0))
             pygameWindow.screen.blit(imageASL, (constants.pygameWindowWidth / 2, constants.pygameWindowWidth / 2))
 
-        elif database[userName]['digit{0}attempted'.format(randomNum)] < 5:
+        elif database[userName]['digit{0}attempted'.format(randomNum)] < 2:
             pygameWindow.screen.blit(imageNumber, (constants.pygameWindowWidth / 2, 0))
             pygameWindow.screen.blit(imageASL, (constants.pygameWindowWidth / 2, constants.pygameWindowWidth / 2))
         programState = 3
@@ -328,7 +328,7 @@ def HandleState3():
         correct.add(randomNum)
         pygameWindow.screen.blit(imageCorrect, (constants.pygameWindowWidth / 2, 0))
         database[userName]["digit{0}attempted".format(randomNum)] += 1
-        pygameWindow.screen.blit(imageASL, (constants.pygameWindowWidth / 2, constants.pygameWindowWidth / 2))
+        # pygameWindow.screen.blit(imageASL, (constants.pygameWindowWidth / 2, constants.pygameWindowWidth / 2))
         dif = allNumber - correct
         if len(dif) > 0:
             diff = list(dif)
@@ -396,14 +396,14 @@ def HandleState3():
             if (len(str(hand)) > 0):
                 Handle_Frame(frame)
 
-        if database[userName]['digit{0}attempted'.format(randomNum)] >= 10:
+        if database[userName]['digit{0}attempted'.format(randomNum)] >= 4:
             pygameWindow.screen.blit(imageNumber, (constants.pygameWindowWidth / 2, 0))
-        elif 5 <= database[userName]['digit{0}attempted'.format(randomNum)] < 10:
+        elif 2 <= database[userName]['digit{0}attempted'.format(randomNum)] < 4:
             pygameWindow.screen.blit(imageNumber, (constants.pygameWindowWidth / 2, 0))
             if 2 < wrongPredict < 6:
                 pygameWindow.screen.blit(imageASL, (constants.pygameWindowWidth / 2, constants.pygameWindowWidth / 2))
 
-        elif database[userName]['digit{0}attempted'.format(randomNum)] < 5:
+        elif database[userName]['digit{0}attempted'.format(randomNum)] < 2:
             pygameWindow.screen.blit(imageNumber, (constants.pygameWindowWidth / 2, 0))
             pygameWindow.screen.blit(imageASL, (constants.pygameWindowWidth / 2, constants.pygameWindowWidth / 2))
         programState = 3
@@ -417,14 +417,14 @@ def HandleState3():
                 Handle_Frame(frame)
 
 
-        if database[userName]['digit{0}attempted'.format(randomNum)] >= 10:
+        if database[userName]['digit{0}attempted'.format(randomNum)] >= 4:
             pygameWindow.screen.blit(imageWrong, (constants.pygameWindowWidth / 2, 0))
-        elif   5 <= database[userName]['digit{0}attempted'.format(randomNum)] < 10:
+        elif   2 <= database[userName]['digit{0}attempted'.format(randomNum)] < 4:
             pygameWindow.screen.blit(imageWrong, (constants.pygameWindowWidth / 2, 0))
             if 2 < wrongPredict < 6:
                 pygameWindow.screen.blit(imageASL, (constants.pygameWindowWidth / 2, constants.pygameWindowWidth / 2))
 
-        elif  database[userName]['digit{0}attempted'.format(randomNum)] <5:
+        elif  database[userName]['digit{0}attempted'.format(randomNum)] <2:
             pygameWindow.screen.blit(imageWrong, (constants.pygameWindowWidth / 2, 0))
             pygameWindow.screen.blit(imageASL, (constants.pygameWindowWidth / 2, constants.pygameWindowWidth / 2))
 
